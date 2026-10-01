@@ -76,6 +76,13 @@
             "Hydrodactyl\\Tests\\": "tests/"
         }
     },
+    "scripts": {
+        "docs:generate": [
+            "@php artisan scribe:generate --no-interaction --no-upgrade-check",
+            "@php scripts/validate-openapi.php"
+        ],
+        "docs:validate": "@php scripts/validate-openapi.php"
+    },
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",

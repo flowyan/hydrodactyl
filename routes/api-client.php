@@ -1,13 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Middleware\CheckDaemonType;
 use Pterodactyl\Http\Controllers\Api\Client;
-use Pterodactyl\Http\Controllers\Api\Client\Servers\MarketplaceController;
 use Pterodactyl\Http\Middleware\Activity\ServerSubject;
 use Pterodactyl\Http\Middleware\Activity\AccountSubject;
 use Pterodactyl\Http\Controllers\Api\Client\Servers\Elytra;
 use Pterodactyl\Http\Middleware\RequireTwoFactorAuthentication;
+use Pterodactyl\Http\Controllers\Api\Client\Servers\MarketplaceController;
 use Pterodactyl\Http\Middleware\Api\Client\Server\ResourceBelongsToServer;
 use Pterodactyl\Http\Middleware\Api\Client\Server\AuthenticateServerAccess;
 
@@ -23,9 +22,7 @@ use Pterodactyl\Http\Middleware\Api\Client\Server\AuthenticateServerAccess;
 Route::get('/', [Client\ClientController::class, 'index'])->name('api:client.index');
 Route::get('/filter-options', [Client\ClientController::class, 'filterOptions'])->name('api:client.filter-options');
 Route::get('/permissions', [Client\ClientController::class, 'permissions']);
-Route::get('/version', function () {
-    return response()->json(['version' => config('app.version')]);
-});
+Route::get('/version', Client\VersionController::class);
 
 Route::prefix('/server-groups')->group(function () {
     Route::get('/', [Client\ServerGroupController::class, 'index'])->name('api:client.server-groups.index');

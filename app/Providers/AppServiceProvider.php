@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Pterodactyl\Extensions\Themes\Theme;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Knuckles\Scribe\Writing\OpenAPISpecWriter;
+use Pterodactyl\Documentation\OpenApiSpecWriter as HydrodactylOpenApiSpecWriter;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -56,6 +58,7 @@ class AppServiceProvider extends ServiceProvider
    */
   public function register(): void
   {
+    $this->app->bind(OpenAPISpecWriter::class, HydrodactylOpenApiSpecWriter::class);
     // Only load the settings service provider if the environment
     // is configured to allow it.
     if (!config('pterodactyl.load_environment_only', false) && $this->app->environment() !== 'testing') {
